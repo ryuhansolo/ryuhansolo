@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+  <title>Enno Illustre</title>
+  <style>
+   * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Crimson Text', serif;
+  overflow: hidden;
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+.left-panel, .right-panel {
+  width: 50%;
+  overflow: hidden;
+  position: relative;
+  background-color: white;
+}
+
+.left-panel {
+  color: black;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers all content vertically */
+  align-items: center; /* Centers all content horizontally */
+  padding: 20px;
+}
+
+.presentation {
+  text-align: center; /* Centers all text within the presentation */
+  margin-bottom: 0px; /* Sets the gap between the presentation and the index */
+}
+
+.illustration-index {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  margin-top: 0px; /* Same gap as the margin-bottom of .presentation */
+}
+
+.intro {
+  font-size: 1em;
+  margin: 10px 0 20px;
+  line-height: 1.5;
+}
+
+.illustration-index li {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.illustration-index li.active {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.right-panel {
+  color: black;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+}
+
+/* Individual image container styles */
+.illustration {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column; /* Images stack vertically */
+  gap: 20px; /* Space between each image */
+  align-items: center; /* Center align images */
+}
+
+.image-container {
+  position: relative; /* Allows positioning the caption over the image */
+  width: 100%; /* Set image container width */
+  max-width: 700px; /* Optional: Limit maximum width of the container */
+}
+
+.image-container img {
+  display: block;
+  width: 100%; /* Image takes up the full width of the container */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.image-container .caption {
+  position: absolute;
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust for perfect centering */
+  color: black;
+  font-size: 1rem;
+  padding: 5px 10px;
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.3s ease-in-out; /* Smooth fade-in on hover */
+  pointer-events: none; /* Prevent interference with pointer events */
+}
+
+.image-container:hover .caption {
+  opacity: 1; /* Make the caption visible when hovering on the image */
+}
+
+.illustration img:hover {
+  transition: opacity 0.3s ease-in-out; /* Smooth fade-in on hover */
+  opacity: 0.7; /* Slight transparency on hover */
+}
+
+.contact-links {
+  display: inline-flex; /* Ensures the links stay in a single line */
+  align-items: center;
+  gap: 5px; /* Adjusts spacing between the links and separator */
+  justify-content: center; /* Centers the links horizontally */
+  margin-top: 10px; /* Adds spacing above the contact links */
+}
+
+.contact-links a {
+  text-decoration: none;
+  color: black; /* Customizes link color */
+}
+
+.contact-links span {
+  color: black; /* Customizes separator color */
+}
+
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const indexItems = document.querySelectorAll('.illustration-index li');
+      const sections = document.querySelectorAll('.illustration');
+      const rightPanel = document.querySelector('.right-panel');
+
+      // Scroll to section on index click
+      indexItems.forEach((item, idx) => {
+        item.addEventListener('click', () => {
+          sections[idx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+
+      // Highlight active index based on visibility
+      const updateActiveIndex = () => {
+        let activeIndex = -1;
+
+        sections.forEach((section, idx) => {
+          const sectionTop = section.getBoundingClientRect().top - rightPanel.getBoundingClientRect().top;
+          const sectionBottom = section.getBoundingClientRect().bottom - rightPanel.getBoundingClientRect().top;
+
+          if (sectionTop < window.innerHeight / 2 && sectionBottom > window.innerHeight / 2) {
+            activeIndex = idx;
+          }
+        });
+
+        indexItems.forEach((item, idx) => {
+          item.classList.toggle('active', idx === activeIndex);
+        });
+      };
+
+      // Attach scroll event listener
+      rightPanel.addEventListener('scroll', updateActiveIndex);
+
+      // Initial call to highlight the correct index
+      updateActiveIndex();
+    });
+  </script>
+</head>
+<body>
+  <div class="left-panel">
+    <div class="presentation">
+      <h1>Enno Illustre</h1>
+      <div class="contact-links">
+        <a href="mailto:email@example.com">ennoillustre@gmail.com</a>
+        <span> / </span>
+        <a href="https://instagram.com/ennoillustre" target="_blank">Instagram</a>
+      </div>
+      <p class="intro">
+        Bonjour. J'observe et je dessine.
+      </p>
+    </div>
+    <ul class="illustration-index">
+      <li>Home</li>
+      <li>Architecture</li>
+      <li>Ville</li>
+      <li>Manger</li>
+    </ul>
+  </div>
+  <div class="right-panel">
+    <div class="illustration">
+      <div class="image-container">
+        <img src="/sources/Home/HOME_1_(Roézé).jpg" alt="Chambre 1">
+          <div class="caption">Roezé   
+          </div>
+      </div>
+      <div class="image-container">
+        <img src="/sources/Home/HOME_2_(Nantes).jpg" alt="Chambre 2">
+          <div class="caption">Nantes
+          </div>
+      </div>
+      <div class="image-container">
+        <img src="/sources/Home/HOME_3_(Seoul).jpg" alt="Chambre 3">
+          <div class="caption">Séoul_1
+          </div>
+      </div>
+      <div class="image-container">
+        <img src="/sources/Home/HOME_4_(Seoul).jpg" alt="Chambre 4">
+          <div class="caption">Séoul_2
+          </div>
+      </div>
+      <div class="image-container">
+        <img src="/sources/Home/Carole_Jeanne_Aimée_Merceron_.jpg" alt="Chambre 5">
+          <div class="caption">Howl's moving castle
+          </div>
+      </div>
+      <div class="image-container">
+        <img src="/sources/Home/Illustration_sans_titre.jpg" alt="Chambre 6">
+          <div class="caption">c'est chez qui ça?
+          </div>
+      </div>
+    <div class="illustration">
+      <div class="image-container">
+        <img src="/sources/Architecture/PFE_CIRCULATIONS.jpg" alt="Architecture 1">
+          <div class="caption">Perspective Extérieure
+          </div>  
+      </div>
+      <div class="image-container">
+        <img src="/sources/Architecture/PFE_COUPE.jpg" alt="Architecture 2">
+          <div class="caption">Coupe  
+          </div>  
+      </div>
+      <div class="image-container">
+       <img src="/sources/Architecture/PFE_ESPACES_PARTAGÉS_.jpg" alt="Architecture 3">
+          <div class="caption">Perspective Intérieure         
+          </div>
+      </div>
+      <div class="image-container">
+        <img src="/sources/Architecture/PFE_FONTAINE.jpg" alt="Architecture 4">
+        <div class="caption">Perspective Extérieure       
+        </div>
+      </div>
+    </div>
+    <div class="illustration">
+      <div class="image-container">
+        <img src="/sources/Ville/NANTES_1.jpg" alt="Ville 1">
+        <div class="caption">Nantes_1
+        </div>
+      </div>
+      <div class="image-container">
+        <img src="/sources/Ville/NANTES_2.jpg" alt="Ville 2">
+        <div class="caption">Nantes_2
+        </div>
+      </div>
+      <div class="image-container">
+        <img src="/sources/Ville/NANTES_3.jpg" alt="Ville 3">
+        <div class="caption">Nantes_3
+        </div>
+      </div>
+      <div class="image-container">
+        <img src="/sources/Ville/SEOUL_1.jpg" alt="Ville 4">
+        <div class="caption">Séoul_1
+        </div>
+      </div>
+      <div class="image-container">
+        <img src="/sources/Ville/SEOUL_2.jpg" alt="Ville 5">
+        <div class="caption">Séoul_2
+        </div>
+      </div>
+      <div class="image-container">
+        <img src="/sources/Ville/SEOUL_3.jpg" alt="Ville 6">
+        <div class="caption">Séoul_3
+        </div>
+      </div>
+      <div class="image-container">
+        <img src="/sources/Ville/SEOUL_4.jpg" alt="Ville 7">
+        <div class="caption">Séoul_4
+        </div>
+      </div>
+      <div class="image-container">
+        <img src="/sources/Ville/SEOUL_5.jpg" alt="Ville 8">
+        <div class="caption">Séoul_5
+        </div>
+      </div>
+      <div class="image-container">
+        <img src="/sources/Ville/BUSAN_1.jpg" alt="Ville 9">
+        <div class="caption">Busan
+        </div>
+      </div>
+    </div>
+    <div class="illustration">
+      <div class="image-container">
+        <img src="/sources/MS_1.webp" alt="Manger 1">
+        <div class="caption">Manger Séoul_1
+        </div>
+      </div>
+      <div class="image-container">
+        <img src="/sources/MS_2.webp" alt="Manger 2">
+        <div class="caption">Manger Séoul_1
+        </div>
+      </div>
+      <div class="image-container">
+        <img src="/sources/MS_3.webp" alt="Manger 3">
+        <div class="caption">Manger Séoul_3
+        </div>
+      </div>
+      <div class="image-container">
+        <img src="/sources/MS_4.webp" alt="Manger 4">
+        <div class="caption">Manger Séoul_4
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
